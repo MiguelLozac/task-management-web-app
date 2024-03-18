@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
+import { SideBarState } from './state/sidebar.type';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-layout',
@@ -17,5 +19,13 @@ import { ButtonModule } from 'primeng/button';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent {
-  sidebarVisible: boolean = true
+  sidebarVisible: boolean = false;
+
+  constructor(private store: Store<SideBarState>) {
+    this.store.select('sideBarVisible')
+      .subscribe(sideBarState => {
+        this.sidebarVisible = sideBarState;
+      });
+  }
+
 }
