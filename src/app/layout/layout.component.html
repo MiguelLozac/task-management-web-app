@@ -1,16 +1,36 @@
 
 <div class="flex">
     <p-sidebar [(visible)]="sidebarVisible" [modal]="false" [showCloseIcon]="false">
-        <h3>Sidebar</h3>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </p>
+        <h5>ALL BOARDS ({{ boardsCount }}) </h5>
+        <div class="gap-2" *ngFor="let board of boards; index as i">
+            <div pRipple class="flex gap-2 align-items-center active:bg-primary cursor-pointer">
+                <i class="pi pi-database"></i>
+                <p  class="text-white font-semibold"> {{ board.title }} </p>
+            </div>
+        </div>
+        <!-- add board button  -->
+        <div (click)="createBoardVisible = true" pRipple class="flex gap-2 align-items-center border-round-right-3xl">
+            <i class="pi pi-plus text-primary"></i>
+            <p  class="font-semibold text-primary cursor-pointer"> Create New Board</p>
+        </div>
     </p-sidebar>
     <div class="block w-12">
         <app-header></app-header>
         <div class="p-2">
-            content
+            <app-board></app-board>
         </div>
     </div>
 </div>
+
+<!-- create board modal -->
+<p-dialog header="Create New Board" [(visible)]="createBoardVisible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+    <div class="flex gap-2 m-3">
+        <span class="flex gap-1 flex-column mx-auto">
+            <label for="boardTitle">Title</label>
+            <div class="flex gap-2">
+                <input class="p-inputtext-sm flex-1 h-2rem" pInputText id="boardTitle" [(ngModel)]="boardTitle"/>
+                <p-button styleClass="h-2rem" [disabled]="boardTitle.length === 0" (click)="onCreateBoard()" label="Create"></p-button>
+            </div>
+        </span>
+    </div>
+</p-dialog>

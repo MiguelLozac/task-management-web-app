@@ -6,6 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { sidebarReducer } from './layout/state/sidebar.reducer';
+import { boardReducer } from './board/state/board/board.reducer';
+import { RippleModule } from 'primeng/ripple';
 
 @NgModule({
   declarations: [
@@ -17,9 +19,11 @@ import { sidebarReducer } from './layout/state/sidebar.reducer';
     BrowserAnimationsModule,
     StoreModule.forRoot(
       {
-        sideBarVisible: sidebarReducer
-      },
-    )
+        sideBarVisible: sidebarReducer,
+        boards: boardReducer
+      }
+    ),
+    RippleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
